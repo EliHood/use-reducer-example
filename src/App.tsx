@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { FC, useContext } from 'react'
+import './App.css'
+import { FormContext } from './context/FormContext'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App: FC = () => {
+    const { state, dispatch } = useContext(FormContext)
+    return (
+        <div data-testid="app-test">
+            <input
+                type="text"
+                name="name"
+                placeholder="Enter A Name"
+                onChange={(e) =>
+                    dispatch({ type: 'SET_NAME', name: e.target.value })
+                }
+            />
+            <input
+                type="text"
+                name="age"
+                placeholder="Enter Age"
+                onChange={(e) =>
+                    dispatch({ type: 'SET_AGE', age: e.target.value })
+                }
+            />
+            Name: {state.name}
+            Age:{state.age}
+        </div>
+    )
 }
 
-export default App;
+export default App
